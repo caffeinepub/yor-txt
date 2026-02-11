@@ -1,0 +1,43 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Rename site to \"yor txt\" across UI and document title",
+  "requirements": [
+    {
+      "id": "REQ-6",
+      "summary": "Replace all user-visible instances of the old app name with \"yor txt\" in shared layout UI (header brand and footer copyright).",
+      "acceptanceCriteria": [
+        "The header brand label displays \"yor txt\" on all pages.",
+        "The footer copyright line displays \"© <current year> yor txt. All rights reserved.\"",
+        "No remaining user-visible instances of the old app name (e.g., \"Story Share\") appear in the rendered UI."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/Header.tsx",
+          "operation": "modify",
+          "description": "Update the top-left brand text from the previous name (currently rendered as \"Story Share\") to \"yor txt\" so it displays consistently on all routes."
+        },
+        {
+          "path": "frontend/src/components/Footer.tsx",
+          "operation": "modify",
+          "description": "Update the footer copyright line to render \"© {currentYear} yor txt. All rights reserved.\" instead of the previous name."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Update the HTML document <title> to use \"yor txt\".",
+      "acceptanceCriteria": [
+        "The browser tab title contains \"yor txt\".",
+        "The previous title text is no longer present in frontend/index.html."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/index.html",
+          "operation": "modify",
+          "description": "Replace the current <title> text with a title that uses \"yor txt\"."
+        }
+      ]
+    }
+  ]
+}

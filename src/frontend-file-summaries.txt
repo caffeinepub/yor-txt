@@ -1,0 +1,20 @@
+{
+  "frontend/src/App.tsx": "Main application component that sets up TanStack Router with hash-based routing for Home, Login, and Stories pages using a shared AppLayout.",
+  "frontend/src/components/AppLayout.tsx": "Root layout component that wraps all pages with a sticky header, main content area, and footer for consistent structure across the app.",
+  "frontend/src/components/Header.tsx": "Responsive navigation header with \"yor txt\" branding, route navigation buttons, and authentication status display.",
+  "frontend/src/components/Footer.tsx": "Footer component displaying copyright information for \"yor txt\" and attribution link to caffeine.ai with UTM tracking.",
+  "frontend/src/components/AuthStatus.tsx": "Displays authenticated user's profile name and provides a sign-out button that clears the query cache on logout.",
+  "frontend/src/components/ProfileSetupDialog.tsx": "Modal dialog that prompts first-time users to enter their display name after signing in with Internet Identity.",
+  "frontend/src/components/StoryList.tsx": "Presentational component that renders a list of stories with author names, timestamps, and formatted content.",
+  "frontend/src/components/StorySubmissionForm.tsx": "Form component for authenticated users to submit new text stories with character count and loading states.",
+  "frontend/src/pages/HomePage.tsx": "Landing page with hero section, feature highlights, call-to-action buttons, and how-it-works guide for the story sharing platform.",
+  "frontend/src/pages/LoginPage.tsx": "Login page that handles Internet Identity authentication flow and triggers profile setup for new users.",
+  "frontend/src/pages/StoriesPage.tsx": "Main stories page displaying submission form for authenticated users and public story list for all visitors.",
+  "frontend/src/hooks/useQueries.ts": "Empty placeholder file as feature-specific React Query hooks are organized in separate dedicated files.",
+  "frontend/src/hooks/useCurrentUserProfile.ts": "React Query hooks for fetching and saving the current user's profile with proper actor dependency handling to prevent modal flash.",
+  "frontend/src/hooks/useStories.ts": "React Query hooks for fetching all stories and adding new stories with automatic cache invalidation on mutations.",
+  "frontend/src/hooks/useUserProfiles.ts": "React Query hook that batch-fetches user profiles for multiple principals to display author names in the story list.",
+  "frontend/src/index.css": "Global styles with OKLCH-based warm green and neutral color system for light and dark modes, avoiding blue/purple primary colors.",
+  "frontend/tailwind.config.js": "Tailwind configuration extending the theme with custom colors, fonts, border radius, shadows, and animations for the warm green design system.",
+  "frontend/index.html": "HTML entry point with document title set to \"yor txt\"."
+}

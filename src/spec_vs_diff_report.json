@@ -1,0 +1,24 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-11T17:28:15.060Z",
+  "summary": "The diff updates the visible header brand text, footer copyright line, and the HTML <title> to \"yor txt\". It also introduces additional footer attribution/UTM-tracking behavior that was not part of the rename request.",
+  "missing_requirements": [],
+  "hallucinated_features": [
+    {
+      "description": "Added/modified footer attribution section including a caffeine.ai outbound link with UTM parameters and a computed appIdentifier based on window.location.hostname.",
+      "reason": "BuildRequest scope is limited to renaming the app and updating the document title; adding/altering attribution links and tracking parameters is a new feature/behavior beyond renaming.",
+      "evidence": [
+        "frontend/src/components/Footer.tsx"
+      ]
+    }
+  ],
+  "confidence": 0.74,
+  "changed_files": [
+    "frontend-file-summaries.txt",
+    "frontend/index.html",
+    "frontend/src/components/Footer.tsx",
+    "frontend/src/components/Header.tsx",
+    "project_state.json"
+  ]
+}

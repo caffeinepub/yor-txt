@@ -1,0 +1,63 @@
+{
+  "kind": "build_request",
+  "title": "Rename the website to \"yor txt\"",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-6",
+      "text": "Update the app/website name to \"yor txt\" everywhere it appears in the UI, including the top-left brand text in the header and the copyright line in the footer.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "The website name is yor txt"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The header brand label displays \"yor txt\" on all pages.",
+        "The footer copyright line displays \"© <current year> yor txt. All rights reserved.\"",
+        "No remaining user-visible instances of the old app name (e.g., \"Story Share\") appear in the rendered UI."
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Update the HTML document title (the <title> tag in frontend/index.html) to use \"yor txt\".",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "The website name is yor txt"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The browser tab title contains \"yor txt\".",
+        "The previous title text is no longer present in frontend/index.html."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not modify any files under frontend/src/components/ui or any paths listed in frontend.immutablePaths."
+  ],
+  "nonGoals": [
+    "Changing authentication, story creation, or backend behavior.",
+    "Adding new pages or features beyond renaming the site/app."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}

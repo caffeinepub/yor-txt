@@ -1,0 +1,95 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 5,
+  "summary": "Simple, clean, mobile-friendly website with Home, Login, and Stories pages where users can log in, post text-only short stories, and browse stories posted by others.",
+  "architectural_notes": [],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-create-a-mobile-friendly-home-page-that-introduces-the-app-and-provides-clear-navigation-to-login-and-stories-pages",
+      "title": "Create a mobile-friendly Home page that introduces the app and provides clear navigation to Login and Stories pages.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-authentication-using-internet-identity-so-users-can-sign-in-and-sign-out-require-authentication-for-creating-a-new-story",
+      "title": "Implement authentication using Internet Identity so users can sign in and sign out; require authentication for creating a new story.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-stories-page-that-lets-authenticated-users-submit-a-text-only-short-story-and-lets-all-users-browse-stories-posted-by-others",
+      "title": "Create a Stories page that lets authenticated users submit a text-only short story and lets all users browse stories posted by others.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-clean-simple-mobile-friendly-visual-theme-consistently-across-home-login-and-stories-pages-colors-typography-spacing-and-component-styling-avoid-blue-purple-as-the-primary-palette",
+      "title": "Apply a clean, simple, mobile-friendly visual theme consistently across Home, Login, and Stories pages (colors, typography, spacing, and component styling). Avoid blue/purple as the primary palette.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-app-website-name-to-yor-txt-everywhere-it-appears-in-the-ui-including-the-top-left-brand-text-in-the-header-and-the-copyright-line-in-the-footer",
+      "title": "Update the app/website name to \"yor txt\" everywhere it appears in the UI, including the top-left brand text in the header and the copyright line in the footer.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-html-document-title-the-title-tag-in-frontend-index-html-to-use-yor-txt",
+      "title": "Update the HTML document title (the <title> tag in frontend/index.html) to use \"yor txt\".",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create Home page with clean, mobile-friendly layout and navigation to Login and Stories",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Implement Login page and user authentication flow (log in to post stories)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Create Stories page to post text-only short stories and view stories posted by other users",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Apply clean, simple, mobile-friendly responsive design across all pages",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Implement backend data model and APIs to store and retrieve text stories, including the author identity and creation timestamp, and persist them across canister upgrades.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "status": "pending"
+    }
+  ],
+  "projectName": "yor txt",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}
