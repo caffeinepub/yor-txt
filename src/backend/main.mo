@@ -36,9 +36,7 @@ actor {
   };
 
   public query ({ caller }) func getUserProfile(user : Principal) : async ?UserProfile {
-    if (caller != user and not AccessControl.isAdmin(accessControlState, caller)) {
-      Runtime.trap("Unauthorized: Can only view your own profile");
-    };
+    // Any caller (including anonymous users) can fetch another user's public profile
     userProfiles.get(user);
   };
 
@@ -54,6 +52,18 @@ actor {
     // Only authenticated users can create stories
     if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
       Runtime.trap("Unauthorized: Only authenticated users can create stories");
+    };
+
+    // Check if the user has saved their display name
+    switch (userProfiles.get(caller)) {
+      case (?profile) {
+        if (profile.name == "") {
+          Runtime.trap("You must save your display name before posting stories.");
+        };
+      };
+      case (null) {
+        Runtime.trap("You must save your display name before posting stories.");
+      };
     };
 
     let story : Story = {

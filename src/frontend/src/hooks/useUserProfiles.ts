@@ -21,7 +21,7 @@ export function useGetUserProfiles(principals: Principal[]) {
             const profile = await actor.getUserProfile(principal);
             return { principal: principal.toString(), profile };
           } catch (error) {
-            console.error(`Failed to fetch profile for ${principal.toString()}:`, error);
+            // Silently handle missing profiles - this is expected for users who haven't set up their profile yet
             return { principal: principal.toString(), profile: null };
           }
         })

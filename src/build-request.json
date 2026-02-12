@@ -1,63 +1,73 @@
 {
   "kind": "build_request",
-  "title": "Rename the website to \"yor txt\"",
+  "title": "Show public user display names on stories (remove Anonymous)",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-6",
-      "text": "Update the app/website name to \"yor txt\" everywhere it appears in the UI, including the top-left brand text in the header and the copyright line in the footer.",
-      "target": "frontend",
+      "id": "REQ-8",
+      "text": "Update the backend user profile read API so any caller (including anonymous users) can fetch another user’s public profile by principal, enabling the Stories page to display authors’ display names to everyone.",
+      "target": "backend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-1"
         ],
         "quotes": [
-          "The website name is yor txt"
+          "I want the user name to be shown publicly to other users too instead of showing anonymous"
         ]
       },
       "acceptanceCriteria": [
-        "The header brand label displays \"yor txt\" on all pages.",
-        "The footer copyright line displays \"© <current year> yor txt. All rights reserved.\"",
-        "No remaining user-visible instances of the old app name (e.g., \"Story Share\") appear in the rendered UI."
+        "Calling the backend method to fetch a user profile by principal succeeds for non-admin callers viewing other users (no authorization trap).",
+        "Anonymous (unauthenticated) frontend browsing can still load stories and can fetch author profiles for display.",
+        "The returned profile data includes at least the stored display name (no additional private fields introduced)."
       ]
     },
     {
-      "id": "REQ-7",
-      "text": "Update the HTML document title (the <title> tag in frontend/index.html) to use \"yor txt\".",
-      "target": "frontend",
+      "id": "REQ-9",
+      "text": "Prevent new stories from being created without a saved display name by enforcing, in the backend addStory flow, that the caller has an existing user profile with a non-empty name; if not, reject the request with a clear error message in English.",
+      "target": "backend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-1"
         ],
         "quotes": [
-          "The website name is yor txt"
+          "I want the user name to be shown publicly to other users too instead of showing anonymous"
         ]
       },
       "acceptanceCriteria": [
-        "The browser tab title contains \"yor txt\".",
-        "The previous title text is no longer present in frontend/index.html."
+        "If an authenticated user attempts to add a story without having saved a profile name, the backend rejects the call with an English error message indicating a display name is required.",
+        "If an authenticated user has a saved non-empty profile name, story creation continues to work as before."
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "text": "Update the Stories UI so story author labels use the author’s saved display name (fetched via the public profile API) rather than showing \"Anonymous\"; when a profile name cannot be found (e.g., legacy stories), display a deterministic fallback derived from the author principal instead of the literal text \"Anonymous\".",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "I want the user name to be shown publicly to other users too instead of showing anonymous"
+        ]
+      },
+      "acceptanceCriteria": [
+        "In the story list, stories authored by users who have set a display name show that name to all viewers (authenticated or not).",
+        "The UI no longer renders the literal author label \"Anonymous\" for stories; for missing profiles it renders a stable principal-based fallback (e.g., a shortened principal string).",
+        "No new console errors are produced during normal story list rendering when some profiles cannot be fetched."
       ]
     }
   ],
   "constraints": [
-    "Do not modify any files under frontend/src/components/ui or any paths listed in frontend.immutablePaths."
+    "Backend must remain a single Motoko actor with logic in backend/main.mo; add migration.mo only if state schema changes require it.",
+    "Do not edit files under frontend/src/components/ui or any other immutablePaths listed in SYSTEM_CONTEXT; compose existing UI components instead."
   ],
   "nonGoals": [
-    "Changing authentication, story creation, or backend behavior.",
-    "Adding new pages or features beyond renaming the site/app."
+    "Adding third-party authentication or any auth provider other than Internet Identity.",
+    "Adding profile fields beyond the existing display name (e.g., avatars, bios).",
+    "Retroactively editing existing stories to rewrite stored author data."
   ],
   "imageRequirements": {
     "required": [],
     "edits": []
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
   }
 }

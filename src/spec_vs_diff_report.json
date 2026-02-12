@@ -1,24 +1,36 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-11T17:28:15.060Z",
-  "summary": "The diff updates the visible header brand text, footer copyright line, and the HTML <title> to \"yor txt\". It also introduces additional footer attribution/UTM-tracking behavior that was not part of the rename request.",
-  "missing_requirements": [],
-  "hallucinated_features": [
+  "generatedAt": "2026-02-12T14:37:24.314Z",
+  "summary": "Backend changes implement a public `getUserProfile` query and enforce display-name presence in `addStory`. Frontend updates `StoryList` to render author display names via a new `useGetUserProfiles` hook, falling back to a deterministic principal-based label. One potential gap: the profile-fetching hook is disabled when no actor is available, which may prevent anonymous visitors from fetching author profiles (depending on how `useActor` behaves, not shown in the diff).",
+  "missing_requirements": [
     {
-      "description": "Added/modified footer attribution section including a caffeine.ai outbound link with UTM parameters and a computed appIdentifier based on window.location.hostname.",
-      "reason": "BuildRequest scope is limited to renaming the app and updating the document title; adding/altering attribution links and tracking parameters is a new feature/behavior beyond renaming.",
+      "id": "REQ-8",
+      "requirement": "Anonymous (unauthenticated) frontend browsing can still load stories and can fetch author profiles for display.",
+      "reason": "The new profile-fetching hook only runs when an `actor` exists (`enabled: !!actor`), and returns an empty result if `actor` is falsy. If the app does not instantiate an actor for anonymous users, profiles will never be fetched for unauthenticated browsing (falling back to principal-derived labels instead). The diff does not show any change ensuring an actor is available for anonymous sessions.",
       "evidence": [
-        "frontend/src/components/Footer.tsx"
+        "frontend/src/hooks/useUserProfiles.ts (enabled: !!actor && ...; queryFn: if (!actor) return {})",
+        "frontend/src/components/StoryList.tsx (uses useGetUserProfiles(...) to obtain display names)"
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "requirement": "In the story list, stories authored by users who have set a display name show that name to all viewers (authenticated or not).",
+      "reason": "StoryList displays profile names only if `profiles` are fetched. The fetch is gated on `actor` existence; if unauthenticated viewers do not get an actor instance, they will always see the principal-based fallback instead of the saved display name. The diff does not demonstrate that anonymous viewers will have an actor and thus will fetch profiles.",
+      "evidence": [
+        "frontend/src/hooks/useUserProfiles.ts (enabled requires actor; returns {} when actor missing)",
+        "frontend/src/components/StoryList.tsx (authorName uses profiles?.[...] || getPrincipalDisplayName(...))"
       ]
     }
   ],
-  "confidence": 0.74,
+  "hallucinated_features": [],
+  "confidence": 0.62,
   "changed_files": [
+    "backend/main.mo",
     "frontend-file-summaries.txt",
-    "frontend/index.html",
-    "frontend/src/components/Footer.tsx",
-    "frontend/src/components/Header.tsx",
+    "frontend/src/components/StoryList.tsx",
+    "frontend/src/hooks/useUserProfiles.ts",
+    "frontend/src/utils/principalDisplay.ts",
     "project_state.json"
   ]
 }

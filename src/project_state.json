@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 5,
+  "projectStateVersion": 7,
   "summary": "Simple, clean, mobile-friendly website with Home, Login, and Stories pages where users can log in, post text-only short stories, and browse stories posted by others.",
   "architectural_notes": [],
   "known_issues": [],
@@ -53,6 +53,14 @@
         "REQ-7"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-update-the-stories-ui-so-story-author-labels-use-the-author-s-saved-display-name-fetched-via-the-public-profile-api-rather-than-showing-anonymous-when-a-profile-name-cannot-be-found-e-g-legacy-stories-display-a-deterministic-fallback-derived-from-the-author-principal-instead-of-the-literal-text-anonymous",
+      "title": "Update the Stories UI so story author labels use the author’s saved display name (fetched via the public profile API) rather than showing \"Anonymous\"; when a profile name cannot be found (e.g., legacy stories), display a deterministic fallback derived from the author principal instead of the literal text \"Anonymous\".",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -85,6 +93,28 @@
       "summary": "Implement backend data model and APIs to store and retrieve text stories, including the author identity and creation timestamp, and persist them across canister upgrades.",
       "reqIds": [
         "REQ-4"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Show the authenticated user’s name publicly on stories (replace \"Anonymous\" with the user’s displayed username)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Update the backend user profile read API so any caller (including anonymous users) can fetch another user’s public profile by principal, enabling the Stories page to display authors’ display names to everyone.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Prevent new stories from being created without a saved display name by enforcing, in the backend addStory flow, that the caller has an existing user profile with a non-empty name; if not, reject the request with a clear error message in English.",
+      "reqIds": [
+        "REQ-9"
       ],
       "status": "pending"
     }

@@ -2,6 +2,7 @@ import { Story } from '../backend';
 import { useGetUserProfiles } from '../hooks/useUserProfiles';
 import { Clock, User } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
+import { getPrincipalDisplayName } from '../utils/principalDisplay';
 
 interface StoryListProps {
   stories: Story[];
@@ -23,7 +24,7 @@ export default function StoryList({ stories }: StoryListProps) {
     <div className="space-y-4">
       {stories.map((story, index) => {
         const authorProfile = profiles?.[story.author.toString()];
-        const authorName = authorProfile?.name || 'Anonymous';
+        const authorName = authorProfile?.name || getPrincipalDisplayName(story.author);
         const timestamp = new Date(Number(story.timestamp) / 1_000_000);
         const timeAgo = formatDistanceToNow(timestamp, { addSuffix: true });
 

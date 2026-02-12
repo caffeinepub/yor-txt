@@ -1,41 +1,31 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Rename site to \"yor txt\" across UI and document title",
+  "title": "Show public user display names on stories (remove Anonymous)",
   "requirements": [
     {
-      "id": "REQ-6",
-      "summary": "Replace all user-visible instances of the old app name with \"yor txt\" in shared layout UI (header brand and footer copyright).",
+      "id": "REQ-10",
+      "summary": "Display story authors using public display names with a deterministic principal-based fallback instead of rendering \"Anonymous\".",
       "acceptanceCriteria": [
-        "The header brand label displays \"yor txt\" on all pages.",
-        "The footer copyright line displays \"© <current year> yor txt. All rights reserved.\"",
-        "No remaining user-visible instances of the old app name (e.g., \"Story Share\") appear in the rendered UI."
+        "In the story list, stories authored by users who have set a display name show that name to all viewers (authenticated or not).",
+        "The UI no longer renders the literal author label \"Anonymous\" for stories; for missing profiles it renders a stable principal-based fallback (e.g., a shortened principal string).",
+        "No new console errors are produced during normal story list rendering when some profiles cannot be fetched."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/Header.tsx",
-          "operation": "modify",
-          "description": "Update the top-left brand text from the previous name (currently rendered as \"Story Share\") to \"yor txt\" so it displays consistently on all routes."
+          "path": "frontend/src/utils/principalDisplay.ts",
+          "operation": "create",
+          "description": "Add a small utility to render a deterministic, human-friendly fallback label derived from a Principal string (e.g., stable shortening) for cases where no profile name is available."
         },
         {
-          "path": "frontend/src/components/Footer.tsx",
+          "path": "frontend/src/components/StoryList.tsx",
           "operation": "modify",
-          "description": "Update the footer copyright line to render \"© {currentYear} yor txt. All rights reserved.\" instead of the previous name."
-        }
-      ]
-    },
-    {
-      "id": "REQ-7",
-      "summary": "Update the HTML document <title> to use \"yor txt\".",
-      "acceptanceCriteria": [
-        "The browser tab title contains \"yor txt\".",
-        "The previous title text is no longer present in frontend/index.html."
-      ],
-      "file_operations": [
+          "description": "Replace the hardcoded \"Anonymous\" author label with: (1) fetched public profile display name when available, else (2) the deterministic principal-based fallback (from frontend/src/utils/principalDisplay.ts). Ensure the component never renders the literal text \"Anonymous\"."
+        },
         {
-          "path": "frontend/index.html",
+          "path": "frontend/src/hooks/useUserProfiles.ts",
           "operation": "modify",
-          "description": "Replace the current <title> text with a title that uses \"yor txt\"."
+          "description": "Adjust profile-fetch error handling so missing/failed profile fetches are handled quietly (returning null) without emitting console.error during normal story list rendering; keep deduplication and mapping behavior intact."
         }
       ]
     }

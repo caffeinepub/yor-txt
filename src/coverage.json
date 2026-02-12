@@ -1,50 +1,55 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-11T17:28:15.063Z",
+  "generatedAt": "2026-02-12T14:37:24.318Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 2,
-    "implemented": 2,
+    "total": 3,
+    "implemented": 1,
     "items": [
       {
-        "id": "REQ-6",
-        "summary": "Update the app/website name to \"yor txt\" everywhere it appears in the UI, including the top-left brand text in the header and the copyright line in the footer.",
+        "id": "REQ-10",
+        "summary": "Update the Stories UI so story author labels use the author’s saved display name (fetched via the public profile API) rather than showing \"Anonymous\"; when a profile name cannot be found (e.g., legacy stories), display a deterministic fallback derived from the author principal instead of the literal text \"Anonymous\".",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/Header.tsx",
-          "frontend/src/components/Footer.tsx"
+          "frontend/src/utils/principalDisplay.ts",
+          "frontend/src/components/StoryList.tsx",
+          "frontend/src/hooks/useUserProfiles.ts"
         ],
         "matchedFiles": [
-          "frontend/src/components/Header.tsx",
-          "frontend/src/components/Footer.tsx"
+          "frontend/src/utils/principalDisplay.ts",
+          "frontend/src/components/StoryList.tsx",
+          "frontend/src/hooks/useUserProfiles.ts"
         ]
       },
       {
-        "id": "REQ-7",
-        "summary": "Update the HTML document title (the <title> tag in frontend/index.html) to use \"yor txt\".",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/index.html"
-        ],
-        "matchedFiles": [
-          "frontend/index.html"
-        ]
+        "id": "REQ-8",
+        "summary": "Update the backend user profile read API so any caller (including anonymous users) can fetch another user’s public profile by principal, enabling the Stories page to display authors’ display names to everyone.",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-9",
+        "summary": "Prevent new stories from being created without a saved display name by enforcing, in the backend addStory flow, that the caller has an existing user profile with a non-empty name; if not, reject the request with a clear error message in English.",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
       }
     ]
   },
   "changedFiles": [
+    "backend/main.mo",
     "build-request.json",
-    "build-template/README.md",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/index.html",
-    "frontend/src/components/Footer.tsx",
-    "frontend/src/components/Header.tsx",
+    "frontend/src/components/StoryList.tsx",
+    "frontend/src/hooks/useUserProfiles.ts",
+    "frontend/src/utils/principalDisplay.ts",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",
